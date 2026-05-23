@@ -7,7 +7,7 @@ from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage
 from langsmith import traceable
 
 MAX_ITERATIONS=10
-MODEL = "mistral"
+MODEL = "qwen3:1.7b"
 
 @tool 
 def get_product_price(product:str) -> float:
@@ -78,7 +78,7 @@ def run_agent(question:str):
         print(f" [Tool Result] {observation}")
 
         messages.append(ai_message)
-        messages.append
+        messages.append(ToolMessage(content=str(observation), tool_call_id=tool_call_id))
 
 
 
