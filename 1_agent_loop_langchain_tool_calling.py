@@ -82,11 +82,7 @@ def run_agent(question:str):
         messages.append(ai_message)
         messages.append(ToolMessage(content=str(observation), tool_call_id=tool_call_id))
 
-
-
 if __name__== "__main__":
     print("Hello LangChain Agent (.bind_tools)!")
     print()
     result=run_agent("What is the price of a laptop after applying a gold discount")
-
-
