@@ -20,3 +20,4 @@ if __name__ == "__main__":
     embeddings = OpenAIEmbeddings(openai_api_key=os.environ.get("OPENAI_API_KEY"))
     print("Ingesting...")
     PineconeVectorStore.from_documents(texts, embeddings, index_name=os.environ['INDEX_NAME'])
+    print("finish")
