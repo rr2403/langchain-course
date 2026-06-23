@@ -23,8 +23,8 @@ embeddings = OpenAIEmbeddings(
     model="text-embedding-3-small", show_progress_bar=False, chunk_size=50, retry_min_seconds=10
 )
 
-chroma = Chroma(persist_directory = "chroma_db", embedding_function = embeddings)
-# vectorstore = PineconeVectorStore(index_name="documentation-helper", embedding=embeddings)
+#chroma = Chroma(persist_directory = "chroma_db", embedding_function = embeddings)
+vectorstore = PineconeVectorStore(index_name="doc-helper", embedding=embeddings)
 tavily_extract = TavilyExtract()
 tavily_map = TavilyMap(max_depth=5, max_breadth=100, max_pages=1000)
 tavily_crawl = TavilyCrawl()
@@ -99,7 +99,7 @@ async def index_documents_async(documents: List[Document], batch_size: int =50):
     #Process all batches concurrently
     async def add_batch(batch: List[Document], batch_num: int): #this is co routine
         try:
-            await chroma.aadd_documents(batch)
+            await vectorstore.aadd_documents(batch)
             log_success(
                 f"VectorStore indexing: Successfully added batch {batch_num}/{len(batches)} ({len(batch)} documents)"
             )
