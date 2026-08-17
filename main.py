@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from langgraph.graph import MessagesState, StateGraph, END
 from node import run_agent_reasoning, tool_node
+from langchain_core.messages import HumanMessage
 
 load_dotenv()
 
@@ -26,3 +27,5 @@ app=flow.compile()
 app.get_graph().draw_mermaid_png(output_file_path="flow.png")
 if __name__ == "__main__":
     print("Hello from Langgraph")
+    res=app.invoke({"messages": [HumanMessage(content="What is the temperature in Tokyo? List it and then triple it")]})
+    print(res["messages"][LAST].content)
